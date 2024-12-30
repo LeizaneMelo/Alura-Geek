@@ -1,9 +1,8 @@
 const express = require('express');
 const fs = require('fs');
 const app = express();
-const PORT = 3000;
 const cors = require('cors');
-
+const PORT = process.env.PORT || 3000;
 app.use(cors());
 
 app.use(express.json());
@@ -55,6 +54,7 @@ app.delete('/produtos/:id', (req, res) => {
   });
 });
 
+
 app.listen(PORT, () => {
-  console.log(`Servidor rodando em https://didactic-waffle-657jqwjqqqw347w-:${PORT}`);
+  console.log(`Servidor rodando na porta ${PORT}`);
 });

@@ -1,4 +1,4 @@
-const BASE_URL = window.location.origin.includes('localhost')
+const BASE_URL = process.env.NODE_ENV === 'production'
     ? 'http://localhost:3000'
     : 'https://didactic-waffle-657jqwjqqqw347w-3000.app.github.dev';
 
