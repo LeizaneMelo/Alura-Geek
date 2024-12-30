@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alura Geek ❤️❤️</title>
+    <link rel="stylesheet" href="/frontend/style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <!-- header -->
+    <header>
+        <h1>❤️❤️❤️AluraGeek❤️❤️❤️</h1>
+    </header>
+<main>
+    <!-- lista de produtos -->
+ <section class="produto">
+    <h1>Meus Produtos:</h1>
+
+    <p class="nenhum_produto" style="display: none;">Nenhum produto encontrado</p> 
+
+    <div class="produtos-container">
+        <img src="" class="produto-imagem" alt="Imagen do produto">
+        
+            <p class="produto-titulo"></p>
+        <div class="preco">
+            <p class="produto-preco"></p>
+            <p class="produto-delete"><i class='bx bx-trash-alt'></i></p>
+        </div>
+        </div>
+    </div>
+ </section>
+     <!-- adicionar produto -->
+     <section class="adicionar">
+        <h2>Adicionar Produto:</h2>
+        
+        <form id="form-adicionar-produto">
+            <input type="text" id="nome" placeholder="Nome do Produto" required>
+            <input type="text" id="preco" placeholder="Preço" required>
+            <input type="text" id="img" placeholder="URL da Imagem" required>
+            <button type="submit">Adicionar Produto</button>
+            <button type="reset">Limpar <i class='bx bx-trash-alt'></i></button>
+          </form>
+     </section>
+</main>
+    <!-- footer -->
+    <footer>
+        <p>❤️❤️❤️AluraGeek - 2024 | desenvolvido por Leizane</p>
+    </footer>
+</body>
+<script src="/backend/produto.js"></script>
+  
+</html>

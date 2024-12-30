@@ -1,0 +1,16 @@
+{
+    "produtos": [
+      {
+        "id": 1735598003684,
+        "nome": "Apple Iphone 14",
+        "preco": "4.568,00",
+        "img": "https://a-static.mlcdn.com.br/800x560/apple-iphone-14-128gb-roxo-61-12mp-ios-5g/magazineluiza/237184200/011990195b55ef800deebf0ac54e2aa6.jpg"
+      },
+      {
+        "id": 1735598019488,
+        "nome": "Nintendo Switch",
+        "preco": "2.599,90",
+        "img": "https://cdn.shoppub.io/cdn-cgi/image/w=1000,h=1000,q=80,f=auto/oficinadosbits/media/uploads/produtos/foto/exsvpeyr/file.png"
+      }
+    ]
+  }
