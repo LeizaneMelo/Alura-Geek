@@ -1,10 +1,8 @@
-const BASE_URL = process.env.NODE_ENV === 'production'
-    ? 'http://localhost:3000'
-    : 'https://didactic-waffle-657jqwjqqqw347w-3000.app.github.dev';
+const BASE_URL = "https://didactic-waffle-657jqwjqqqw347w-3000.app.github.dev/produtos"
 
 async function fetchProdutos() {
     try {
-        const response = await fetch(`${BASE_URL}/produtos`);
+        const response = await fetch(BASE_URL);
         if (!response.ok) throw new Error('Erro ao buscar produtos');
         const produtos = await response.json();
         renderizarProdutos(produtos);
@@ -66,7 +64,7 @@ async function fetchProdutos() {
   
   
   async function carregarProdutos() {
-      const response = await fetch(`${BASE_URL}/produtos`);
+      const response = await fetch(BASE_URL);
       const produtos = await response.json();
       
       const container = document.querySelector('.nenhum_produto');
