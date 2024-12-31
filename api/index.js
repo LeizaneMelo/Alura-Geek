@@ -1,5 +1,6 @@
 import fs from 'fs/promises';
 
+
 let produtos = [];
 
 async function carregarProdutos() {
