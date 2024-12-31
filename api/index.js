@@ -1,37 +1,71 @@
-import fs from 'fs/promises';
 
 
+const express = require('express');
+ const fs = require('fs');
+const app = express();
+const PORT = 3000;
+const cors = require('cors');
+
+// Habilitar CORS
+app.use(cors());
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public'));
+
+// Banco de dados fake inicializado com produtos do arquivo JSON
 let produtos = [];
 
-async function carregarProdutos() {
-  try {
-    const data = await fs.readFile('db.json', 'utf8');
+// Função para carregar produtos de um arquivo JSON
+function carregarProdutos() {
+  fs.readFile('db.json', 'utf8', (err, data) => {
+    if (err) {
+      console.error("Erro ao carregar produtos:", err);
+      return;
+    }
     produtos = JSON.parse(data).produtos;
-  } catch (err) {
-    console.error("Erro ao carregar produtos:", err);
-  }
+  });
 }
 
-export default async function handler(req, res) {
-  await carregarProdutos();
+// Carregar produtos ao iniciar o servidor
+carregarProdutos();
 
-  if (req.method === 'GET') {
-    return res.status(200).json(produtos);
-  }
+// Rota para listar produtos
+app.get('/produtos', (req, res) => {
+  res.json(produtos);
+});
 
-  if (req.method === 'POST') {
-    const { nome, preco, img } = req.body;
-    const novoProduto = { id: Date.now(), nome, preco, img };
-    produtos.push(novoProduto);
-
-    try {
-      await fs.writeFile('db.json', JSON.stringify({ produtos }, null, 2));
-      return res.status(201).json(novoProduto);
-    } catch (err) {
+// Rota para adicionar um novo produto
+app.post('/adiciona-produto', (req, res) => {
+  const { nome, preco, img } = req.body;
+  const novoProduto = { id: Date.now(), nome, preco, img };
+  produtos.push(novoProduto);
+  
+  // Atualizar o db.json com o novo produto
+  fs.writeFile('db.json', JSON.stringify({ produtos }, null, 2), (err) => {
+    if (err) {
       console.error("Erro ao salvar o produto:", err);
       return res.status(500).json({ message: "Erro ao salvar o produto" });
     }
-  }
+    res.status(201).json(novoProduto);
+  });
+});
 
-  return res.status(405).json({ message: 'Método não permitido' });
-}
+// Rota para deletar um produto pelo ID
+app.delete('/produtos/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  produtos = produtos.filter(produto => produto.id !== id);
+
+  // Atualizar o db.json após a exclusão
+  fs.writeFile('db.json', JSON.stringify({ produtos }, null, 2), (err) => {
+    if (err) {
+      console.error("Erro ao salvar as alterações:", err);
+      return res.status(500).json({ message: "Erro ao salvar as alterações" });
+    }
+    res.json({ message: 'Produto excluído com sucesso' });
+  });
+});
+
+app.listen(PORT, () => {
+  console.log(`Servidor rodando em http://localhost:${PORT}`);
+});
